@@ -1,0 +1,20 @@
+.courses {
+	display: flex;
+	align-items: flex-start;
+	gap: 40px;
+}
+
+.content {
+	flex: 1;
+}
+
+@media (max-width: 1199px) {
+	.courses {
+		gap: 24px;
+	}
+}
+@media (max-width: 760px) {
+	.courses {
+		display: block;
+	}
+}

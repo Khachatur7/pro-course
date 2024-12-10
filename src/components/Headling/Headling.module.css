@@ -1,0 +1,18 @@
+.h1 {
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 120%;
+	color: #233566;
+	margin: 0;
+}
+
+.big {
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 120%;
+	color: #233566;
+}
+
+.small {
+	font-size: 18px;
+}
