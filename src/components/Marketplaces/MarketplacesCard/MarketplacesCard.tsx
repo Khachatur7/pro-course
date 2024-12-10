@@ -3,7 +3,7 @@ import Button from "../../Button/Button";
 import styles from "./MarketplacesCard.module.css";
 
 interface MarketplacesCardProps {
-  id:number
+  id: number;
   image: string;
   name: string;
   title: string;
@@ -54,8 +54,24 @@ const MarketplaceCard: React.FC<MarketplacesCardProps> = ({
             </div>
           ))}
           {additionalServices && (
-            <div className={styles["card-move"]}>
-              ещё <span>{additionalServices} услуга</span>
+            <div
+              className={styles["card-move"]}
+              onClick={() => {
+                navigate(`/expert/${id}`);
+                localStorage.setItem("more-services", JSON.stringify(true));
+              }}
+            >
+              ещё{" "}
+              <span>
+                {additionalServices - 3}{" "}
+                {additionalServices - 3 == 1
+                  ? "услуга"
+                  : additionalServices - 3 == 2 ||
+                    additionalServices - 3 == 3 ||
+                    additionalServices - 3 == 4
+                  ? "услуги"
+                  : "услуг"}
+              </span>
             </div>
           )}
         </div>

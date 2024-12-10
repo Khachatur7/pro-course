@@ -4,7 +4,7 @@ import ServiceCard from "../../components/ServiceCard/serviceCard";
 import styles from "../Expert/Expert.module.css";
 import { BaseUrl } from "../../api/BaseUrl";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import InputLabel from "../../components/InputLabel/InputLabel";
 import TextareaLabel from "../../components/TextareaLabel/TextareaLabel";
@@ -39,6 +39,9 @@ const Expert = () => {
   const [email, setEmail] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
+  const [acceptApplicationMessage, setAcceptApplicationMessage] =
+    useState<boolean>(false);
+
   const GetUser = async () => {
     try {
       const res = await axios.get<IExpert>(`${BaseUrl}/users/${id}`, {
@@ -55,23 +58,40 @@ const Expert = () => {
       console.log(error);
     }
   };
-
-  const CreateOrder = async () => {
-    if (email.includes("@") && email.includes(".")) {
+  const targetElementRef = useRef<HTMLDivElement | null>(null);
+  // для скролла на элемент услуги,если на страницу перешли через текст "еще ... услуг"
+  useEffect(() => {
+    if (targetElementRef.current) {
+      if (localStorage.getItem("more-services")) {
+        localStorage.removeItem("more-services");
+        targetElementRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [expert]);
+  const CreateOrder = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    if (email.includes("@") && email.includes(".") && message.trim()) {
       try {
-        const res = await axios.post(`${BaseUrl}/order`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: {
+        const res = await axios.post(
+          `${BaseUrl}/order`,
+          {
             contact: email,
             message: message,
             services_id: course?.id,
           },
-        });
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (res.status == 200) {
           console.log(res.data);
+          setAcceptApplicationMessage(true);
         }
       } catch (error) {
         console.log(error);
@@ -135,7 +155,7 @@ const Expert = () => {
         </div>
       )}
       {expert && (
-        <div className={styles["services-prices"]}>
+        <div className={styles["services-prices"]} ref={targetElementRef}>
           <span className={styles["services-prices-title"]}>Услуги и цены</span>
           <div className={styles["services-prices-list"]}>
             {expert.services_list.map((s) => {
@@ -158,40 +178,47 @@ const Expert = () => {
         <ModalWindow
           isOpen={modal}
           onClosed={() => setModal(false)}
-          title="Заказ курса"
+          title={!acceptApplicationMessage ? "Заказ курса" : "Заявка принята!"}
         >
-          <form className={styles["form"]}>
-            <InputLabel
-              label="Ваш email"
-              type="email"
-              id="user-email"
-              value={email}
-              onChange={(e) => handleInputChange(e, setEmail)}
-            />
-            <TextareaLabel
-              label="Сообщение специалисту"
-              id="message"
-              maxLength={320}
-              value={message}
-              onChange={(e) => handleInputChange(e, setMessage)}
-            />
-            <div className={styles["form-nav"]}>
-              <Button
-                className={styles["form-btn"]}
-                appearance="item"
-                onClick={CancelModel}
-              >
-                Отменить
-              </Button>
-              <Button
-                className={styles["form-btn"]}
-                appearance="big"
-                onClick={CreateOrder}
-              >
-                {"Создать курс"}
-              </Button>
+          {!acceptApplicationMessage && (
+            <form className={styles["form"]}>
+              <InputLabel
+                label="Ваш email"
+                type="email"
+                id="user-email"
+                value={email}
+                onChange={(e) => handleInputChange(e, setEmail)}
+              />
+              <TextareaLabel
+                label="Сообщение специалисту"
+                id="message"
+                maxLength={320}
+                value={message}
+                onChange={(e) => handleInputChange(e, setMessage)}
+              />
+              <div className={styles["form-nav"]}>
+                <Button
+                  className={styles["form-btn"]}
+                  appearance="item"
+                  onClick={CancelModel}
+                >
+                  Отменить
+                </Button>
+                <Button
+                  className={styles["form-btn"]}
+                  appearance="big"
+                  onClick={(event) => CreateOrder(event)}
+                >
+                  {"Создать курс"}
+                </Button>
+              </div>
+            </form>
+          )}
+          {acceptApplicationMessage && (
+            <div className={styles["accept-message"]}>
+              <span>Специалист свяжется с вами в ближайшее время.</span>
             </div>
-          </form>
+          )}
         </ModalWindow>
       )}
     </div>
