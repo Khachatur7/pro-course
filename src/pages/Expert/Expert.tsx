@@ -89,7 +89,7 @@ const Expert = () => {
           }
         );
 
-        if (res.status == 200) {
+        if (res.status == 201) {
           console.log(res.data);
           setAcceptApplicationMessage(true);
         }
@@ -151,7 +151,10 @@ const Expert = () => {
       {expert && (
         <div className={styles["about-expert"]}>
           <span className={styles["about-expert-title"]}>О себе</span>
-          <p className={styles["description"]}>{expert.description}</p>
+          <div
+            className={styles["description"]}
+            dangerouslySetInnerHTML={{ __html: expert.description }}
+          />
         </div>
       )}
       {expert && (
@@ -178,7 +181,9 @@ const Expert = () => {
         <ModalWindow
           isOpen={modal}
           onClosed={() => setModal(false)}
-          title={!acceptApplicationMessage ? "Заказ курса" : "Заявка принята!"}
+          title={
+            !acceptApplicationMessage ? "Заказать услугу" : "Заявка принята!"
+          }
         >
           {!acceptApplicationMessage && (
             <form className={styles["form"]}>
@@ -209,7 +214,7 @@ const Expert = () => {
                   appearance="big"
                   onClick={(event) => CreateOrder(event)}
                 >
-                  {"Создать курс"}
+                  {"Заказать"}
                 </Button>
               </div>
             </form>
