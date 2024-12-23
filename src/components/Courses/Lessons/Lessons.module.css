@@ -1,0 +1,31 @@
+.lessons__top {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	padding: 16px;
+	margin-bottom: 24px;
+}
+.lessons__first,
+.lessons__last {
+	width: 50%;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.lessons__method {
+	width: 64px;
+}
+
+.caption {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 140%;
+	color: #233566;
+}
+
+.lessons__body {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}

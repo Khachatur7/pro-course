@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Корпус камеры -->
+  <rect x="2" y="7" width="20" height="14" rx="3" ry="3" stroke="#233566" />
+  <!-- Верхняя часть камеры -->
+  <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="#233566" />
+  <!-- Объектив -->
+  <circle cx="12" cy="14" r="4" stroke="#233566" />
+  <circle cx="12" cy="14" r="2" stroke="#233566" />
+  <!-- Вспышка -->
+  <circle cx="18" cy="10" r="1" stroke="#233566" />
+  <!-- Декоративная линия -->
+  <path d="M6 16h2" stroke="#233566" />
+</svg>

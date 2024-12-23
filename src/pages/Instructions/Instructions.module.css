@@ -1,0 +1,28 @@
+section {
+	margin-bottom: 20px;
+}
+
+section h2 {
+	margin-bottom: 20px;
+}
+
+.instruction {
+	margin-bottom: 20px;
+}
+
+article {
+	margin-bottom: 15px;
+}
+
+article h3 {
+	color: #333;
+	margin-bottom: 10px;
+}
+
+ul {
+	padding-left: 20px;
+}
+
+ul li {
+	margin-bottom: 10px;
+}

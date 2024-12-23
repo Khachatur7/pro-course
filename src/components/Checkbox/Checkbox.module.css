@@ -1,0 +1,35 @@
+.checkbox-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: Raleway;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.44px;
+  color: #233566;
+}
+
+.checkbox-container input {
+  display: none;
+}
+
+.checkmark {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-container input:checked + .checkmark {
+  border-color: #233566;
+  background-color: #233566;
+}
+
+.checkbox-container input:checked + .checkmark path {
+  stroke: #fff;
+}

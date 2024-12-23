@@ -1,0 +1,69 @@
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.field__label {
+	font-weight: bold;
+}
+
+.textarea {
+	min-height: 200px;
+	padding: 0;
+	border: none;
+	border-radius: 8px;
+	font-size: 16px;
+	overflow: hidden;
+	outline: none;
+	background-color: rgba(0, 80, 255, 0.02);
+}
+.textarea * {
+	font-family: var(--font-family);
+}
+
+.counter {
+	text-align: right;
+	font-size: 14px;
+	color: #555;
+}
+
+.toolbar {
+	display: flex;
+	gap: 8px;
+	background-color: #f9f9f9;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.toolbarButton {
+	background: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 4px 8px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.toolbarButton.active {
+	background-color: #007bff;
+	color: #fff;
+	border-color: #0056b3;
+}
+
+.ql-header-1 {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.ql-header-2 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.ql-header-3 {
+	font-size: 1.25em;
+	font-weight: bold;
+}

@@ -1,0 +1,22 @@
+.page {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	min-height: calc(100vh - 64px - 82px);
+	border-radius: 0 0 24px 24px;
+	position: relative;
+}
+@media (max-width: 1199px) {
+	.page {
+		min-height: calc(100vh - 64px - 72px);
+	}
+}
+@media (max-width: 1010px) {
+	.page {
+		min-height: calc(100vh - 64px - 70px);
+	}
+}
+@media (max-width: 760px) {
+	.page {
+		min-height: calc(100vh - 188px);
+	}
+}

@@ -1,0 +1,44 @@
+.orders {
+	display: flex;
+	align-items: flex-start;
+	gap: 40px;
+}
+
+.content {
+	flex: 1;
+}
+
+.content__top {
+	display: none;
+}
+.btn-sidebar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+@media (max-width: 1199px) {
+	.orders {
+		gap: 24px;
+	}
+}
+@media (max-width: 1010px) {
+	.content__top {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 24px;
+	}
+}
+@media (max-width: 760px) {
+	.orders {
+		display: block;
+	}
+	.btn-sidebar {
+		width: 100%;
+	}
+	.active {
+		transform: translateY(0) !important;
+		visibility: visible !important;
+	}
+}

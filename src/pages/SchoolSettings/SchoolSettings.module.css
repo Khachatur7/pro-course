@@ -1,0 +1,134 @@
+.school-settings {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+
+.school-settings__body {
+	width: 100%;
+	border-radius: 24px;
+	padding: 24px;
+	box-shadow: 0 8px 24px 0 rgba(222, 216, 225, 0.24);
+	background-color: #fff;
+}
+
+.school-settings__wrap {
+	max-width: 360px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.school-settings__box {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 24px;
+}
+.school-settings__box:not(:last-child) {
+	padding-bottom: 24px;
+	border-bottom: 1px solid #f1f6fa;
+}
+.school-settings__nav {
+	display: flex;
+	gap: 16px;
+}
+
+.school-settings__nav button {
+	min-width: 160px;
+}
+
+.logo {
+	border-radius: 12px;
+	width: 120px;
+	height: 120px;
+	box-shadow: 0 8px 24px 0 rgba(222, 216, 225, 0.12);
+	background-color: #fff;
+	position: relative;
+}
+.logo-img {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+.logo-img img {
+	min-width: 80px;
+	min-height: 80px;
+	object-fit: contain;
+}
+.logo-change {
+	display: block;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+	background-color: #f1f6fa;
+	top: -4px;
+	right: -4px;
+	cursor: pointer;
+}
+
+.logo-change svg {
+	width: 14px;
+	height: 14px;
+	object-fit: contain;
+}
+.logo-field {
+	display: none;
+}
+
+.info-box {
+	padding-right: 46px;
+}
+
+.btn-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--second-family);
+	font-weight: 500;
+	height: 40px;
+	font-size: 14px;
+	line-height: 100%;
+	color: #233566;
+	border: 1px solid #233566;
+	border-radius: 12px;
+	padding: 10px 24px;
+	background-color: transparent;
+	text-decoration: none;
+	outline: none;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+.btn-item:hover {
+	border-color: #233566;
+	background-color: #233566;
+	color: #fff;
+}
+
+.phone {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+}
+.phone button {
+	display: none;
+}
+
+.desc {
+	font-size: 14px;
+	color: #233566;
+}
+
+.active {
+	top: 100px !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+}

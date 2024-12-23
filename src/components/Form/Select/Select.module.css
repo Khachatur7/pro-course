@@ -1,0 +1,92 @@
+.field {
+	position: relative;
+	width: 100%;
+	display: block;
+	border-radius: 8px;
+}
+
+.field__label {
+	position: absolute;
+	font-weight: 400;
+	font-size: 14px;
+	color: rgba(35, 53, 102, 1);
+	top: 14px;
+	left: 16px;
+	transition: all 0.3s ease;
+}
+.field__label.active {
+	font-size: 10px;
+	top: 8px;
+	font-size: 10px;
+	color: rgba(35, 53, 102, 0.4);
+}
+
+.select {
+	height: 48px;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 700;
+	font-size: 14px;
+	color: #233566;
+	border: none;
+	border-radius: 8px;
+	padding: 22px 16px 10px 16px;
+	outline: none;
+	background-color: rgba(0, 80, 255, 0.02);
+}
+
+.select__value {
+	flex-grow: 1;
+}
+
+.select__arrow {
+	width: 16px;
+	height: 16px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	top: -4px;
+	transition: all 0.3s ease-in-out;
+}
+.select__arrow img {
+	width: 100%;
+	height: 100%;
+}
+.select__arrow.rotated {
+	transform: scaleY(-1);
+}
+
+.dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	font-weight: 700;
+	font-size: 14px;
+	color: #233566;
+	border-radius: 8px;
+	background: #fff;
+	border: 1px solid rgba(0, 80, 255, 0.02);
+	border-top: none;
+	z-index: 10;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	max-height: 150px;
+	overflow-y: auto;
+}
+
+.option {
+	padding: 8px 12px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.option:hover {
+	background-color: rgba(0, 80, 255, 0.02);
+}
+
+.option.selected {
+	background-color: rgba(0, 80, 255, 0.02);
+}

@@ -1,0 +1,145 @@
+@font-face {
+	font-family: "Raleway";
+	src: url("./fonts/Open Sans/Open Sans Regular/Open Sans Regular.eot");
+	src:
+		url("./fonts/Open Sans/Open Sans Regular/Open Sans Regular.eot?#iefix") format("embedded-opentype"),
+		url("./fonts/Open Sans/Open Sans Regular/Open Sans Regular.woff") format("woff"),
+		url("./fonts/Open Sans/Open Sans Regular/Open Sans Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Raleway";
+	src: url("./fonts/Raleway/Raleway Medium/Raleway Medium.eot");
+	src:
+		url("./fonts/Raleway/Raleway Medium/Raleway Medium.eot?#iefix") format("embedded-opentype"),
+		url("./fonts/Raleway/Raleway Medium/Raleway Medium.woff") format("woff"),
+		url("./fonts/Raleway/Raleway Medium/Raleway Medium.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Raleway";
+	src: url("./fonts/Raleway/Raleway Bold/Raleway Bold.eot");
+	src:
+		url("./fonts/Raleway/Raleway Bold/Raleway Bold.eot?#iefix") format("embedded-opentype"),
+		url("./fonts/Raleway/Raleway Bold/Raleway Bold.woff") format("woff"),
+		url("./fonts/Raleway/Raleway Bold/Raleway Bold.ttf") format("truetype");
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Open Sans";
+	src: url("./fonts/Raleway/Raleway Regular/Raleway Regular.eot");
+	src:
+		url("./fonts/Raleway/Raleway Regular/Raleway Regular.eot?#iefix") format("embedded-opentype"),
+		url("./fonts/Raleway/Raleway Regular/Raleway Regular.woff") format("woff"),
+		url("./fonts/Raleway/Raleway Regular/Raleway Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "PT Root UI";
+	src: url("./fonts/PT Root UI/PT Root UI Medium/PT Root UI Medium.eot");
+	src:
+		url("./fonts/PT Root UI/PT Root UI Medium/PT Root UI Medium.eot?#iefix") format("embedded-opentype"),
+		url("./fonts/PT Root UI/PT Root UI Medium/PT Root UI Medium.woff") format("woff"),
+		url("./fonts/PT Root UI/PT Root UI Medium/PT Root UI Medium.ttf") format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: "PT Root UI";
+	src: url("./fonts/PT Root UI/PT Root UI Bold/PT Root UI Bold.eot");
+	src:
+		url("./fonts/PT Root UI/PT Root UI Bold/PT Root UI Bold.eot?#iefix") format("embedded-opentype"),
+		url("./fonts/PT Root UI/PT Root UI Bold/PT Root UI Bold.woff") format("woff"),
+		url("./fonts/PT Root UI/PT Root UI Bold/PT Root UI Bold.ttf") format("truetype");
+	font-weight: 600;
+	font-style: normal;
+}
+
+:root {
+	--font-family: "Raleway", sans-serif;
+	--second-family: "PT Root UI", sans-serif;
+	--third-family: "Open Sans", sans-serif;
+	--bg-dark: #040e24;
+	--white-color: #fff;
+	--white-light: #f1f6fa;
+	--white-light-hover: #c7d3dd;
+	--primary-color: #0050ff;
+	--primary-color-hover: #0339ad;
+	--color-dark-hover: hsl(0, 10%, 40%);
+	--text-color-hover: hsl(0, 10%, 40%);
+	--text-secondary-color: #5b5b5e;
+	--separator-color: #d9d9d9;
+}
+
+@keyframes opacity {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: var(--font-family);
+	margin: 0;
+	padding: 0;
+	background-image: url(/./bg.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+button,
+input,
+textarea {
+	font-family: "Raleway", sans-serif;
+	outline: none;
+}
+
+button {
+	outline: none;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	outline: none;
+	padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+}
+
+.wrapper {
+	max-width: 1310px;
+	margin: 0 auto;
+	padding: 0 15px;
+}
+
+.ql-editor {
+	min-height: 160px;
+}
+.ql-toolbar.ql-snow {
+	border: none !important;
+	font-family: "Raleway", sans-serif !important;
+	border-bottom: 1px solid #ccc !important;
+}
+.ql-container.ql-snow {
+	border: none !important;
+}

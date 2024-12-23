@@ -1,0 +1,15 @@
+.orders-list {
+	margin-top: -70px;
+}
+
+.orders-list__top {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.orders-list__content {
+	margin-top: 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}

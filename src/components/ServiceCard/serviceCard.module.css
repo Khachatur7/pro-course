@@ -1,0 +1,88 @@
+.service-card {
+	width: 640px;
+	height: 72px;
+	padding: 16px;
+	border-radius: 12px;
+	box-shadow: 0px 8px 24px 0px #ded8e11f;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	gap: 15px;
+}
+
+.title {
+	font-family: Raleway;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 16.8px;
+}
+
+.price {
+	font-family: Raleway !important;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 21.6px;
+	flex: 1;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+
+.price span span {
+	font-weight: 500;
+}
+.btn {
+	padding: 10px 24px;
+	border-radius: 12px;
+	border: 1px solid var(--dark-blue);
+	transition: 0.3s ease;
+}
+
+.btn span {
+	font-family: PT Root UI;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 14px;
+	color: var(--dark-blue);
+}
+
+.btn:hover {
+	background: var(--dark-blue);
+}
+
+.btn:hover span {
+	color: #ffff;
+}
+
+@media (max-width: 700px) {
+	.service-card {
+		width: 100%;
+		gap: 20px;
+	}
+}
+
+@media (max-width: 550px) {
+	.title {
+		max-width: 130px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		font-size: 13px;
+	}
+
+	.price {
+		font-size: 14px;
+	}
+	.btn {
+		padding: 12px 20px;
+	}
+	.btn span {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 420px) {
+	.title {
+		max-width: 80px;
+	}
+}
