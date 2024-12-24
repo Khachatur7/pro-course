@@ -37,7 +37,10 @@ const PaymentData: FC<IPayment> = ({ offerInfo, error, setError }) => {
       setError(true);
     } else {
       error && setError(false);
-      location.replace(paymentLink || location.pathname);
+      location.replace(
+        `${paymentLink}?phone=${phone}&email=${email}&name=${name}` ||
+          location.pathname
+      );
     }
   };
 
@@ -51,8 +54,6 @@ const PaymentData: FC<IPayment> = ({ offerInfo, error, setError }) => {
       }
     }
   };
-
-  console.log(offerInfo);
 
   return (
     <div className="data-component__list">
@@ -125,20 +126,20 @@ const PaymentData: FC<IPayment> = ({ offerInfo, error, setError }) => {
         </div>
         <div className={styles["payment-type"]}>
           <div className={styles["types-radio"]}>
-            <PaymentType
-              active={paymetType == "картой"}
-              type={"картой"}
-              onChange={() =>
-                offerInfo.payment_by_card && ChangePaymentType("картой")
-              }
-            />
-            <PaymentType
-              active={paymetType == "в рассрочку"}
-              type={"в рассрочку"}
-              onChange={() =>
-                offerInfo.in_credit && ChangePaymentType("в рассрочку")
-              }
-            />
+            {offerInfo.payment_by_card ? (
+              <PaymentType
+                active={paymetType == "картой"}
+                type={"картой"}
+                onChange={() => ChangePaymentType("картой")}
+              />
+            ) : ""}
+            {offerInfo.in_credit ? (
+              <PaymentType
+                active={paymetType == "в рассрочку"}
+                type={"в рассрочку"}
+                onChange={() => ChangePaymentType("в рассрочку")}
+              />
+            ) : ""}
           </div>
           <Checkbox
             onChange={() => setAgreement(!agreement)}

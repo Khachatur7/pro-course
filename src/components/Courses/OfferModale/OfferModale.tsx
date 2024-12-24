@@ -1,9 +1,14 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Button from "../../Button/Button";
 import InputLabel from "../../InputLabel/InputLabel";
 import styles from "./OfferModale.module.css";
 import Checkbox from "../../Checkbox/Checkbox";
-import { createOffer } from "../../../helpers/API";
+import {
+  changeOffer,
+  createOffer,
+  getOfferData,
+  IOffer,
+} from "../../../helpers/API";
 import { useParams } from "react-router-dom";
 
 interface IOfferModale {
@@ -13,6 +18,7 @@ interface IOfferModale {
 
 const OfferModale: FC<IOfferModale> = ({ setState, upDateList }) => {
   const { id } = useParams();
+  const [changeData, setChangeData] = useState(false);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [cardLink, setCardLink] = useState(
@@ -22,13 +28,21 @@ const OfferModale: FC<IOfferModale> = ({ setState, upDateList }) => {
   const [installmentLink, setInstallmentLink] = useState(
     "https://lk.pro-online.ru/testform/413"
   );
+  const offerStorage = localStorage.getItem("offer");
   const [installmentCheckbox, setInstallmentCheckbox] = useState(false);
-  const [created, setCreated] = useState<boolean | string>(false);
+  const [message, setMessage] = useState<boolean | string>(false);
   const CheckPriceText = (e: string) => {
     setPrice(e.replace(/[^0-9]/g, ""));
   };
 
-  const createNewOffer = async () => {
+  const ChangeDataOrNot = async () => {
+    if (offerStorage) {
+      const offer = JSON.parse(offerStorage);
+      getData(offer.courseId, offer.offerId);
+      setChangeData(true);
+    }
+  };
+  const CreateNewOffer = async () => {
     if (id) {
       try {
         const res = await createOffer(
@@ -42,20 +56,60 @@ const OfferModale: FC<IOfferModale> = ({ setState, upDateList }) => {
           },
           id?.toString()
         );
-
-        console.log(res);
-        setCreated(res.message);
+        setMessage(res.message);
         upDateList(true);
-      } catch (error) {}
+      } catch (error) {
+        throw new Error("Не удалось создать новое предложение");
+      }
     }
   };
+  const ChangeOffer = async () => {
+    if (id && offerStorage) {
+      try {
+        const ids = JSON.parse(offerStorage);
+        await changeOffer(ids.courseId, ids.offerId, {
+          tariff_name: name,
+          price: price,
+          in_credit: installmentCheckbox,
+          credit_payment_link: installmentCheckbox ? installmentLink : null,
+          payment_by_card: cardCheckbox,
+          card_payment_link: cardCheckbox ? cardLink : null,
+        });
+        setMessage("Предложение изменено");
+        upDateList(true);
+        localStorage.removeItem("offer");
+      } catch (error) {
+        throw new Error("Не удалось изменить предложение");
+      }
+    }
+  };
+
+  const getData = async (courseId: string, offerId: string) => {
+    if (courseId && offerId) {
+      const res: IOffer = await getOfferData(courseId, offerId);
+      setName(res.tariff_name);
+      setPrice(res.price.toString());
+      setCardLink(res.card_payment_link || "");
+      setInstallmentLink(res.credit_payment_link || "");
+      setCardCheckbox(res.payment_by_card);
+      setInstallmentCheckbox(res.in_credit);
+    }
+  };
+
+  useEffect(() => {
+    ChangeDataOrNot();
+  }, []);
 
   return (
     <div className={styles["offer"]}>
       <div className={styles["offer-modale"]}>
         <div className={styles["offer__top"]}>
           <span className={styles["offer-title"]}>
-            {created ? created : "Создание предложения"}
+            {message
+              ? message
+              : changeData
+              ? "Изменить предложение"
+              : "Создание предложения"}
           </span>
           <div className={styles["exit_btn"]} onClick={() => setState(false)}>
             <svg
@@ -78,7 +132,7 @@ const OfferModale: FC<IOfferModale> = ({ setState, upDateList }) => {
             </svg>
           </div>
         </div>
-        {!created ? (
+        {!message ? (
           <form className={styles["form"]}>
             <InputLabel
               label="Название тарифа"
@@ -98,8 +152,9 @@ const OfferModale: FC<IOfferModale> = ({ setState, upDateList }) => {
               <Checkbox
                 label={"Оплата в рассрочку"}
                 onChange={() => setInstallmentCheckbox(!installmentCheckbox)}
+                active={installmentCheckbox}
               />
-              {installmentCheckbox && (
+              {installmentCheckbox ? (
                 <InputLabel
                   label="Ссылка на “Оплата в рассрочку”"
                   type="text"
@@ -107,15 +162,18 @@ const OfferModale: FC<IOfferModale> = ({ setState, upDateList }) => {
                   value={installmentLink}
                   onChange={(e) => setInstallmentLink(e.toString())}
                 />
+              ) : (
+                ""
               )}
             </div>
             <div className={styles["payment-type"]}>
               <Checkbox
                 label={"Оплата картой"}
                 onChange={() => setCardCheckbox(!cardCheckbox)}
+                active={cardCheckbox}
               />
 
-              {cardCheckbox && (
+              {cardCheckbox ? (
                 <InputLabel
                   label="Ссылка на “Оплата картой”"
                   type="text"
@@ -123,6 +181,8 @@ const OfferModale: FC<IOfferModale> = ({ setState, upDateList }) => {
                   value={cardLink}
                   onChange={(e) => setCardLink(e.toString())}
                 />
+              ) : (
+                ""
               )}
             </div>
             <div className={styles["form-nav"]}>
@@ -138,16 +198,17 @@ const OfferModale: FC<IOfferModale> = ({ setState, upDateList }) => {
                 appearance="big"
                 onClick={(e) => {
                   e.preventDefault();
-                  createNewOffer();
+                  changeData ? ChangeOffer() : CreateNewOffer();
                 }}
               >
-                Создать предложение
+                {changeData ? "Изменить предложение" : "Создать предложение"}
               </Button>
             </div>
           </form>
         ) : (
           <div className={styles["created-message"]}>
-            Предложение успешно добавлено! Можете закрыть окно
+            Предложение успешно {changeData ? "изменено" : "добавлено"}! Можете
+            закрыть окно
           </div>
         )}
       </div>

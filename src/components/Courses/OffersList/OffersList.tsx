@@ -19,6 +19,7 @@ const OffersList: FC<IOfferList> = ({ state, setState }) => {
     if (id) {
       try {
         const res = await getOffers(id);
+        console.log(res);
         setOffersList(res);
         setUpdate(false);
       } catch (error) {
@@ -38,9 +39,19 @@ const OffersList: FC<IOfferList> = ({ state, setState }) => {
   }, []);
 
   useEffect(() => {
-    if (loading && offersList.length!=0) {
+    const timer = setTimeout(() => {
+      if (offersList.length == 0) {
+        setLoading(false);
+      }
+    }, 2000);
+    if (loading && offersList.length != 0) {
       setLoading(false);
     }
+
+    return () => {
+      clearTimeout(timer);
+      console.log("Таймер остановлен!");
+    };
   }, [offersList]);
   if (loading) {
     return (
@@ -74,7 +85,7 @@ const OffersList: FC<IOfferList> = ({ state, setState }) => {
               repeatCount="indefinite"
             />
           </circle>
-          <circle cx="60" cy="15" r="9" fill-opacity="0.5">
+          <circle cx="60" cy="15" r="9" fillOpacity="0.5">
             <animate
               attributeName="r"
               from="9"
@@ -96,7 +107,7 @@ const OffersList: FC<IOfferList> = ({ state, setState }) => {
               repeatCount="indefinite"
             />
           </circle>
-          <circle cx="105" cy="15" r="9" fill-opacity="0.5">
+          <circle cx="105" cy="15" r="9" fillOpacity="0.5">
             <animate
               attributeName="r"
               from="9"
@@ -122,9 +133,18 @@ const OffersList: FC<IOfferList> = ({ state, setState }) => {
       </div>
     );
   }
+  if (offersList.length == 0 && !loading) {
+    return (
+      <span>
+        Нету предложений
+        {state && <OfferModale setState={setState} upDateList={setUpdate} />}
+      </span>
+    );
+  }
   return (
     <div className={styles["offer"]}>
       {state && <OfferModale setState={setState} upDateList={setUpdate} />}
+
       <div className={styles["offer__top"]}>
         <div className={styles["name"]}>
           <span>Название</span>
@@ -149,6 +169,7 @@ const OffersList: FC<IOfferList> = ({ state, setState }) => {
                 courseId={of.course_id}
                 offerId={of.id}
                 upDateList={setUpdate}
+                setState={setState}
               />
             );
           })}

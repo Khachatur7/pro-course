@@ -3,16 +3,17 @@ import styles from "./Checkbox.module.css";
 import cn from "classnames";
 
 interface ICheckbox {
+  active?:boolean
   label?: string;
   onChange: () => void;
   className?: string;
 	children?: React.ReactNode;
 }
 
-const Checkbox: FC<ICheckbox> = ({ label, onChange, className,children }) => {
+const Checkbox: FC<ICheckbox> = ({ active,label, onChange, className,children }) => {
   return (
     <label className={cn(styles["checkbox-container"], className)}>
-      <input type="checkbox" onChange={onChange} />
+      <input type="checkbox" onChange={onChange} checked={active}/>
       <span className={styles["checkmark"]}>
         <svg
           width="18px"

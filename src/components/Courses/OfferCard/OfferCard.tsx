@@ -9,20 +9,32 @@ interface IOfferCard {
   offerId: number;
   courseId: number;
   upDateList: React.Dispatch<React.SetStateAction<boolean>>;
+  setState:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const OfferCard: FC<IOfferCard> = ({ name, price, offerId, courseId,upDateList }) => {
+const OfferCard: FC<IOfferCard> = ({
+  name,
+  price,
+  offerId,
+  courseId,
+  upDateList,
+  setState
+}) => {
+  const DeleteOffer = async () => {
+    try {
+      const res = await deleteOffer(courseId, offerId);
+      console.log(res);
+      upDateList(true);
+    } catch (error) {}
+  };
 
-const DeleteOffer = async () => {
-  try {
-    const res = await deleteOffer(courseId,offerId)
-    console.log(res)
-    upDateList(true)
-
-  } catch (error) {
-    
-  }
-}
+  const changeOfferData = async () => {
+    localStorage.setItem(
+      "offer",
+      JSON.stringify({offerId, courseId })
+    );
+    setState(true)
+  };
 
   return (
     <div className={styles["offer_card"]}>
@@ -43,7 +55,7 @@ const DeleteOffer = async () => {
         </NavLink>
       </div>
       <div className={styles["card-offer__nav"]}>
-        <button className={styles["card-offer-btn"]}>
+        <button className={styles["card-offer-btn"]} onClick={changeOfferData}>
           <svg
             width="20"
             height="20"

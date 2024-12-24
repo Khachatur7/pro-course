@@ -779,7 +779,6 @@ export async function createOffer(
   return data;
 }
 
-
 export async function deleteOffer(
   courseId: number,
   offerId: number,
@@ -790,7 +789,7 @@ export async function deleteOffer(
 
     const response = await fetch(
       getApiUrl(
-       `courses/${courseId}/offers/${offerId}`
+        `courses/${courseId}/offers/${offerId}`
       ),
       {
         method: "DELETE",
@@ -811,6 +810,43 @@ export async function deleteOffer(
     console.error(`Ошибка предложения с ID ${offerId}:`, error);
   }
 }
+
+export async function changeOffer(
+  courseId: string,
+  offerId: string,
+  offerData: ICreateOffer,
+
+): Promise<any> {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("Токен не найден!");
+
+    const response = await fetch(
+      getApiUrl(
+        `courses/${courseId}/offers/${offerId}`
+      ),
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(offerData),
+      }
+    );
+    console.log(response);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Ошибка изменения преложения.");
+    }
+
+    console.log(`Предложение с ID ${offerId} успешно изменено.`);
+  } catch (error) {
+    console.error(`Ошибка предложения с ID ${offerId}:`, error);
+  }
+}
+
 
 export async function getOfferData(
   courseId: string,
